@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Glaucoscan</string>
+
+    <string name="nav_gallery">Gallery</string>
+    <string name="nav_camera">Camera</string>
+    <string name="action_back">Back</string>
+
+    <string name="model_label">Model</string>
+    <string name="model_pick_title">Select model</string>
+
+    <string name="gallery_pick_image">Choose image</string>
+    <string name="gallery_change_image">Change image</string>
+    <string name="gallery_empty_hint">Tap to choose an image</string>
+    <string name="gallery_image_desc">Fundus image</string>
+
+    <string name="camera_hint">Point the camera at a fundus image</string>
+    <string name="camera_pause">Pause</string>
+    <string name="camera_resume">Resume</string>
+    <string name="camera_permission_title">Camera access needed</string>
+    <string name="camera_permission_body">The camera is only used for on-device analysis. No images are saved or sent.</string>
+    <string name="camera_permission_button">Allow camera</string>
+
+    <string name="result_glaucoma">Glaucoma</string>
+    <string name="result_normal">Normal</string>
+    <string name="result_probability">Glaucoma probability</string>
+
+    <string name="error_open_image">Couldn\'t open this image.</string>
+    <string name="error_inference">Analysis failed. Please try again.</string>
+</resources>

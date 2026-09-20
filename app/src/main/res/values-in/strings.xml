@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Glaucoscan</string>
+
+    <string name="nav_gallery">Galeri</string>
+    <string name="nav_camera">Kamera</string>
+    <string name="action_back">Kembali</string>
+
+    <string name="model_label">Model</string>
+    <string name="model_pick_title">Pilih model</string>
+
+    <string name="gallery_pick_image">Pilih gambar</string>
+    <string name="gallery_change_image">Ganti gambar</string>
+    <string name="gallery_empty_hint">Ketuk untuk memilih gambar</string>
+    <string name="gallery_image_desc">Citra fundus</string>
+
+    <string name="camera_hint">Arahkan kamera ke citra fundus</string>
+    <string name="camera_pause">Jeda</string>
+    <string name="camera_resume">Lanjut</string>
+    <string name="camera_permission_title">Akses kamera diperlukan</string>
+    <string name="camera_permission_body">Kamera hanya dipakai untuk analisis di perangkat. Tidak ada gambar yang disimpan atau dikirim.</string>
+    <string name="camera_permission_button">Izinkan kamera</string>
+
+    <string name="result_glaucoma">Glaukoma</string>
+    <string name="result_normal">Normal</string>
+    <string name="result_probability">Probabilitas glaukoma</string>
+
+    <string name="error_open_image">Gambar tidak dapat dibuka.</string>
+    <string name="error_inference">Analisis gagal. Silakan coba lagi.</string>
+</resources>
