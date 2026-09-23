@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.glaucoscan.R
 import com.example.glaucoscan.core.commons.ModelSelectionState
+import com.example.glaucoscan.domain.models.AnalysisOutcome
 import com.example.glaucoscan.domain.models.ModelConfig
 import com.example.glaucoscan.domain.usecases.ClassifyBitmapUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,7 +48,13 @@ class CameraViewModel @Inject constructor(
                 bitmap.recycle()
             }
             val next = outcome.fold(
-                onSuccess = { CameraState.Status.Success(it) },
+                onSuccess = {
+                    outcome ->
+                    when (outcome){
+                        is AnalysisOutcome.Detected -> CameraState.Status.Success(outcome.result)
+                        AnalysisOutcome.NotFundus -> CameraState.Status.NotFundus
+                    }
+                },
                 onFailure = {
                     Log.e("Camera", "Inference failed", it)
                     CameraState.Status.Error(R.string.error_inference) },
@@ -62,5 +69,5 @@ class CameraViewModel @Inject constructor(
 
     fun onModelSelected(model: ModelConfig) = modelSelection.select(model)
 
-    private companion object { const val FRAME_INTERVAL_MS = 350L }
+    private companion object { const val FRAME_INTERVAL_MS = 500L }
 }

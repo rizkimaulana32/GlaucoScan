@@ -26,4 +26,7 @@
 
     <string name="error_open_image">Couldn\'t open this image.</string>
     <string name="error_inference">Analysis failed. Please try again.</string>
+
+    <string name="not_fundus_title">Not a retinal image</string>
+    <string name="not_fundus_body">Use a fundus photo of the retina.</string>
 </resources>

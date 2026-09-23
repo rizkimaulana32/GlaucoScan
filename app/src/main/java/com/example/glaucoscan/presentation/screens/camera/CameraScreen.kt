@@ -62,6 +62,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.glaucoscan.R
 import com.example.glaucoscan.presentation.screens.ModelRow
 import com.example.glaucoscan.presentation.screens.ModelSheet
+import com.example.glaucoscan.presentation.screens.NotFundusCard
 import com.example.glaucoscan.presentation.screens.ResultCard
 import com.example.glaucoscan.presentation.theme.Blue
 import java.util.concurrent.Executors
@@ -113,6 +114,7 @@ fun CameraScreen(onBack: () -> Unit, viewModel: CameraViewModel = hiltViewModel(
                 .padding(horizontal = 20.dp, vertical = 20.dp),
         ) {
             when (val a = state.status) {
+                CameraState.Status.NotFundus -> NotFundusCard(Modifier.fillMaxWidth())
                 is CameraState.Status.Success -> ResultCard(a.result, Modifier.fillMaxWidth())
                 is CameraState.Status.Error -> Text(stringResource(a.message), color = MaterialTheme.colorScheme.error)
                 else -> Text(

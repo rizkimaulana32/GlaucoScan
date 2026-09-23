@@ -55,7 +55,7 @@ class ImageClassifierHelper @Inject constructor(
 
                         ClassificationResult(
                             glaucomaProbability = pGlaucoma,
-                            label = if (pGlaucoma >= 0.5f) GlaucomaLabel.GLAUCOMA else GlaucomaLabel.NORMAL,
+                            label = if (pGlaucoma >= GLAUCOMA_THRESHOLD) GlaucomaLabel.GLAUCOMA else GlaucomaLabel.NORMAL,
                             latencyMs = latencyMs,
                             inputPrecision = if (inputType == OnnxJavaType.FLOAT16) "FP16" else "FP32",
                             model = model,
@@ -109,7 +109,7 @@ class ImageClassifierHelper @Inject constructor(
 
     private companion object {
         const val OUTPUT_IS_LOGIT = true
-
         const val GLAUCOMA_IS_POSITIVE_CLASS = false
+        const val GLAUCOMA_THRESHOLD = 0.5f
     }
 }

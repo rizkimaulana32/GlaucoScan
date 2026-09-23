@@ -210,3 +210,18 @@ fun BackBar(title: String, onBack: () -> Unit) {
         Text(title, style = MaterialTheme.typography.headlineSmall)
     }
 }
+
+@Composable
+fun NotFundusCard(modifier: Modifier = Modifier) {
+    AppCard(modifier) {
+        Column(Modifier.padding(20.dp)) {
+            Text(stringResource(R.string.not_fundus_title), style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(4.dp))
+            Text(
+                stringResource(R.string.not_fundus_body),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}

@@ -26,4 +26,7 @@
 
     <string name="error_open_image">Gambar tidak dapat dibuka.</string>
     <string name="error_inference">Analisis gagal. Silakan coba lagi.</string>
+
+    <string name="not_fundus_title">Bukan citra retina</string>
+    <string name="not_fundus_body">Gunakan foto fundus retina.</string>
 </resources>

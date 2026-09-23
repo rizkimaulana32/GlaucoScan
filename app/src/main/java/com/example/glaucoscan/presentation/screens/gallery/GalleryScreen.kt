@@ -46,6 +46,7 @@ import com.example.glaucoscan.R
 import com.example.glaucoscan.presentation.screens.BackBar
 import com.example.glaucoscan.presentation.screens.ModelRow
 import com.example.glaucoscan.presentation.screens.ModelSheet
+import com.example.glaucoscan.presentation.screens.NotFundusCard
 import com.example.glaucoscan.presentation.screens.ResultCard
 import com.example.glaucoscan.presentation.theme.Blue
 
@@ -74,6 +75,7 @@ fun GalleryScreen(onBack: () -> Unit, viewModel: GalleryViewModel = hiltViewMode
                     Modifier.fillMaxWidth().clip(CircleShape),
                     color = Blue.Primary, trackColor = MaterialTheme.colorScheme.outline,
                 )
+                GalleryState.Status.NotFundus -> NotFundusCard(Modifier.fillMaxWidth())
                 is GalleryState.Status.Success -> ResultCard(a.result, Modifier.fillMaxWidth())
                 is GalleryState.Status.Error -> Text(stringResource(a.message), color = MaterialTheme.colorScheme.error)
             }

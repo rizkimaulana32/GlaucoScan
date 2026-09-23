@@ -13,6 +13,7 @@ data class GalleryState(
     sealed interface Status {
         data object Initial : Status
         data object Loading : Status
+        data object NotFundus : Status
         data class Success(val result: ClassificationResult) : Status
         data class Error(@StringRes val message: Int) : Status
     }

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.glaucoscan.R
 import com.example.glaucoscan.core.commons.ModelSelectionState
+import com.example.glaucoscan.domain.models.AnalysisOutcome
 import com.example.glaucoscan.domain.models.ModelConfig
 import com.example.glaucoscan.domain.usecases.ClassifyBitmapUseCase
 import com.example.glaucoscan.domain.usecases.LoadBitmapUseCase
@@ -53,7 +54,12 @@ class GalleryViewModel @Inject constructor(
 
     private suspend fun infer(bmp: Bitmap): GalleryState.Status =
         classify(bmp, modelSelection.selected.value).fold(
-            onSuccess = { GalleryState.Status.Success(it) },
+            onSuccess = { outcome ->
+                when (outcome) {
+                    is AnalysisOutcome.Detected -> GalleryState.Status.Success(outcome.result)
+                    AnalysisOutcome.NotFundus -> GalleryState.Status.NotFundus
+                }
+            },
             onFailure = {
                 Log.e("Gallery", "Inference failed", it)
                 GalleryState.Status.Error(R.string.error_inference)
