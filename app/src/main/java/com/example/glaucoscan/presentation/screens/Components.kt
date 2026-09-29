@@ -27,8 +27,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,9 +43,8 @@ import com.example.glaucoscan.domain.models.ClassificationResult
 import com.example.glaucoscan.domain.models.Dataset
 import com.example.glaucoscan.domain.models.GlaucomaLabel
 import com.example.glaucoscan.domain.models.ModelConfig
-import com.example.glaucoscan.domain.models.Variant
 import com.example.glaucoscan.presentation.theme.Blue
-import java.util.Locale
+import kotlinx.coroutines.launch
 
 @Composable
 fun AppCard(
@@ -149,7 +150,20 @@ fun ModelRow(model: ModelConfig, onClick: () -> Unit, modifier: Modifier = Modif
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModelSheet(selected: ModelConfig, onSelect: (ModelConfig) -> Unit, onDismiss: () -> Unit) {
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+
+    fun dismissWithAnimation() {
+        scope.launch { sheetState.hide() }
+            .invokeOnCompletion {
+                if (!sheetState.isVisible) {
+                    onDismiss()
+                }
+            }
+    }
+
     ModalBottomSheet(
+        sheetState = sheetState,
         onDismissRequest = onDismiss,
         containerColor = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
@@ -158,39 +172,27 @@ fun ModelSheet(selected: ModelConfig, onSelect: (ModelConfig) -> Unit, onDismiss
             Text(stringResource(R.string.model_pick_title), style = MaterialTheme.typography.headlineSmall)
             Spacer(Modifier.height(16.dp))
 
-            Row(
-                Modifier.fillMaxWidth().clip(MaterialTheme.shapes.small)
-                    .background(MaterialTheme.colorScheme.surfaceVariant).padding(4.dp),
-            ) {
-                Dataset.entries.forEach { ds ->
-                    val active = ds == selected.dataset
-                    Box(
-                        Modifier.weight(1f).clip(RoundedCornerShape(9.dp))
-                            .background(if (active) MaterialTheme.colorScheme.surface else Color.Transparent)
-                            .clickable { onSelect(selected.copy(dataset = ds)) }
-                            .padding(vertical = 10.dp),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            ds.label, style = MaterialTheme.typography.labelMedium,
-                            color = if (active) Blue.Primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(12.dp))
-            Variant.entries.forEach { v ->
-                val active = v == selected.variant
+            Dataset.entries.forEach { ds ->
+                val active = ds == selected.dataset
                 Row(
                     Modifier.fillMaxWidth().padding(vertical = 4.dp)
                         .clip(MaterialTheme.shapes.small)
                         .background(if (active) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent)
-                        .clickable { onSelect(selected.copy(variant = v)) }
+                        .clickable {
+                            onSelect(ModelConfig(ds))
+                            dismissWithAnimation()
+                        }
                         .padding(horizontal = 14.dp, vertical = 14.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(v.label, Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                    Column(Modifier.weight(1f)) {
+                        Text(ds.label, style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            stringResource(ds.descriptionRes),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     if (active) Icon(Icons.Default.Check, null, tint = Blue.Primary)
                 }
             }

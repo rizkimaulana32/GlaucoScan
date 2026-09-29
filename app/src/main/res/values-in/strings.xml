@@ -29,4 +29,6 @@
 
     <string name="not_fundus_title">Bukan citra retina</string>
     <string name="not_fundus_body">Gunakan foto fundus retina.</string>
+    <string name="dataset_desc_acrima">Cocok untuk gambar fundus yang sudah di-crop</string>
+    <string name="dataset_desc_drishti">Cocok untuk gambar fundus utuh (belum di-crop)</string>
 </resources>

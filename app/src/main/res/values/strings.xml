@@ -29,4 +29,6 @@
 
     <string name="not_fundus_title">Not a retinal image</string>
     <string name="not_fundus_body">Use a fundus photo of the retina.</string>
+    <string name="dataset_desc_acrima">Best for close-up, cropped fundus images</string>
+    <string name="dataset_desc_drishti">Best for full, uncropped fundus images</string>
 </resources>
